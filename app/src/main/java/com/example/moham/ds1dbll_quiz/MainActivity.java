@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText login;
     EditText mdp;
+    Bd bd=new Bd(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,18 @@ public class MainActivity extends AppCompatActivity {
         String user = login.getText().toString();
         String pass = mdp.getText().toString();
 
-        if (user.equals("mohamed")) {
+        String verifConnexion = bd.login(user,pass);
+        if (verifConnexion.equals("ok")) {
+            Intent intent = new Intent(this,QuizzActivity.class);
+            intent.putExtra("login",user);
+            startActivity(intent);
+            Toast.makeText(this,"Connexion réussite !",Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this,verifConnexion,Toast.LENGTH_LONG).show();
+        }
+
+        /*if (user.equals("mohamed")) {
             if (pass.equals("12345")) {
                 Intent intent = new Intent(this,QuizzActivity.class);
                 startActivity(intent);
@@ -39,6 +51,16 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             Toast.makeText(this,"Login incorrecte",Toast.LENGTH_LONG).show();
-        }
+        }*/
+
+
+
+    }
+
+    public void inscrire(View view) {
+
+        Intent intent = new Intent(this,Inscription.class);
+        startActivity(intent);
+
     }
 }
